@@ -27,7 +27,7 @@ fun BabyalterScreen(
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
             BirthDateSection(
-                title = "Echter Geburtstermin",
+                title = "Alter mit echtem Geburtstermin",
                 date = birthDate,
                 prefKey = BIRTH_DATE_KEY,
                 activity = activity
@@ -36,7 +36,7 @@ fun BabyalterScreen(
             Spacer(modifier = Modifier.height(32.dp))
 
             BirthDateSection(
-                title = "Errechneter Geburtstermin",
+                title = "Alter mit errechnetem Geburtstermin",
                 date = birthDateCalc,
                 prefKey = BIRTH_DATE_CALC_KEY,
                 activity = activity
