@@ -1,0 +1,10 @@
+Categories:
+  - Utilities
+License: MIT
+SourceCode: https://github.com/rhea/babyalter
+IssueTracker: https://github.com/rhea/babyalter/issues
+
+Summary: Zeigt das Alter eines Babys in Tagen, Wochen und Monaten
+Description: |
+  Eine kleine, offlinefähige Android-App zur Anzeige
+  des Babyalters basierend auf einem Geburtsdatum.
