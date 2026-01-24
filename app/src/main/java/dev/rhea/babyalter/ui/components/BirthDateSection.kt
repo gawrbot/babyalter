@@ -15,9 +15,11 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import dev.rhea.babyalter.data.calculateAge
 import dev.rhea.babyalter.dataStore
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.Locale
 
 @Composable
 fun BirthDateSection(
@@ -27,28 +29,7 @@ fun BirthDateSection(
     activity: ComponentActivity
 ) {
     val scope = rememberCoroutineScope()
-    var today by remember { mutableStateOf(LocalDate.now()) }
-    var pickedDate by remember { mutableStateOf<LocalDate?>(null) }
-
-    // Mitternacht-Update
-    LaunchedEffect(Unit) {
-        while (true) {
-            val now = LocalDate.now()
-            if (now != today) today = now
-            delay(60_000)
-        }
-    }
-
-    // Speichern nach Auswahl
-    LaunchedEffect(pickedDate) {
-        pickedDate?.let { date ->
-            scope.launch {
-                activity.dataStore.edit { prefs ->
-                    prefs[prefKey] = date.toString()
-                }
-            }
-        }
-    }
+    val today = remember { LocalDate.now() }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -60,28 +41,54 @@ fun BirthDateSection(
 
         if (date == null) {
             Button(onClick = {
-                showDatePicker(activity, today) { pickedDate = it }
+                showDatePicker(activity, today) { selectedDate ->
+                    scope.launch {
+                        activity.dataStore.edit { prefs ->
+                            prefs[prefKey] = selectedDate.toString()
+                        }
+                    } }
             }) {
                 Text("Datum auswählen", fontSize = 18.sp)
             }
         } else {
-            val age = calculateAge(date, today)
+            val age = remember(date, today) { calculateAge(date, today) }
 
+            val formattedDate by remember(date) {
+                mutableStateOf(
+                    date.format(
+                        DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+                            .withLocale(Locale.getDefault())
+                    )
+                )
+            }
+
+
+            Text("$formattedDate", fontSize = 14.sp)
+            Spacer(modifier = Modifier.height(8.dp))
             Text("Tage: ${age.daysTotal}", fontSize = 18.sp)
             Text(
-                "Wochen: ${age.weeks} + ${age.remainingDaysAfterWeeks} Tage",
+                "Wochen: ${age.weeks} + ${age.remainingDaysAfterWeeks} Tag/e",
                 fontSize = 18.sp
             )
             Text(
-                "Monate: ${age.months} + ${age.remainingWeeksAfterMonths} Wochen + ${age.remainingDaysAfterMonths} Tage",
+                "Monate: ${age.months} + ${age.remainingWeeksAfterMonths} Woche/n + ${age.remainingDaysAfterMonths} Tag/e",
                 fontSize = 18.sp
+            )
+            Text(
+                "Jahre: ${age.years} + ${age.remainingMonthsAfterYears} + ${age.remainingWeeksAfterYears} + ${age.remainingDaysAfterYears}",
+                fontSize = 16.sp
             )
 
             Spacer(modifier = Modifier.height(12.dp))
 
             Row {
                 OutlinedButton(onClick = {
-                    showDatePicker(activity, today) { pickedDate = it }
+                    showDatePicker(activity, today) { selectedDate ->
+                        scope.launch {
+                            activity.dataStore.edit { prefs ->
+                                prefs[prefKey] = selectedDate.toString()
+                            }
+                        } }
                 }) {
                     Text("Ändern")
                 }
