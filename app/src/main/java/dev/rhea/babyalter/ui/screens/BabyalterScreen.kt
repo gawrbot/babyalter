@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import dev.rhea.babyalter.data.BIRTH_DATE_KEY
 import dev.rhea.babyalter.data.BIRTH_DATE_CALC_KEY
 import dev.rhea.babyalter.ui.components.BirthDateSection
+import dev.rhea.babyalter.ui.components.Footer
 import java.time.LocalDate
 
 @Composable
@@ -42,5 +43,10 @@ fun BabyalterScreen(
                 activity = activity
             )
         }
+        Footer(
+            linkText = "© 2026 Rhea · Open Source (MIT)",
+            url = "https://github.com/gawrbot/babyalter",
+            modifier = Modifier.align(Alignment.BottomCenter)
+        )
     }
 }
