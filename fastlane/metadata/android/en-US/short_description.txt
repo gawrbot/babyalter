@@ -1,1 +1,1 @@
-A super simple app that shows you your baby's exact age.
+A super simple app in German that shows you your baby's exact age.
