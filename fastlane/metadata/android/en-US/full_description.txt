@@ -1,0 +1,3 @@
+A little helper to check when your baby's next predictable leap takes place.
+
+Enter your baby's birth date and your baby's expected delivery date to see their age(s) in days, weeks, months and years. It saves the dates and updates the age(s) daily.
