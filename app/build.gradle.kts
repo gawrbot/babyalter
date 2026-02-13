@@ -5,39 +5,21 @@ plugins {
 }
 
 android {
-    namespace = "dev.rhea.babyalter"
-    defaultConfig {
-        applicationId = "dev.rhea.babyalter"
-        versionCode = 1
-        versionName = "1.0.0"
+        namespace = "dev.rhea.babyalter"
+        compileSdk = 36
 
-    }
-    compileSdk {
-        version = release(36)
-    }
-
-    defaultConfig {
-        applicationId = "dev.rhea.babyalter"
-        minSdk = 23
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    signingConfigs {
-        create("release") {
-            storeFile = file(project.property("RELEASE_STORE_FILE") as String)
-            storePassword = project.property("RELEASE_STORE_PASSWORD") as String
-            keyAlias = project.property("RELEASE_KEY_ALIAS") as String
-            keyPassword = project.property("RELEASE_KEY_PASSWORD") as String
+        defaultConfig {
+            applicationId = "dev.rhea.babyalter"
+            minSdk = 23
+            targetSdk = 36
+            versionCode = 1
+            versionName = "1.0.0"
+            testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
-    }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
