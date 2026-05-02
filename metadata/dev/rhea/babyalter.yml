@@ -1,10 +1,26 @@
 Categories:
   - Utilities
-License: MIT
-SourceCode: https://github.com/rhea/babyalter
-IssueTracker: https://github.com/rhea/babyalter/issues
 
+License: MIT
+AuthorName: gawrbot
+
+SourceCode: https://github.com/gawrbot/babyalter
+IssueTracker: https://github.com/gawrbot/babyalter/issues
+
+AutoName: BabyAlter
 Summary: Zeigt das Alter eines Babys in Tagen, Wochen und Monaten
+
 Description: |
   Eine kleine, offlinefähige Android-App zur Anzeige
   des Babyalters basierend auf einem Geburtsdatum.
+
+RepoType: git
+Repo: https://github.com/gawrbot/babyalter
+
+Builds:
+  - versionName: 1.0.0
+    versionCode: 1
+    commit: main
+    subdir: .
+    gradle:
+      - yes
